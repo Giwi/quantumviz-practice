@@ -1,0 +1,209 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/warp10-quantumviz/warp10-geoquantumviz.html">
+<link rel="import" href="../../bower_components/warp10-quantumviz/warp10-display-c3-chart.html">
+<link rel="import" href="../../bower_components/warp10-iron/warp10-warpscript-caller.html">
+
+<dom-module id="quantumviz-practice-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <warp10-display-chart id="warp10-display-chart" data="{{data}}" tooltip></warp10-display-chart>
+
+    <warp10-warpscript-caller auto id="warpscriptcaller" url="{{_baseUrl}}" warpscript="{{ warpscriptScript }}" on-response="_handleResponse"
+      on-error="_handleError"></warp10-warpscript-caller>
+   
+    <warp10-geoquantumviz 
+      map-zoom="14" 
+      show-axis="false" 
+      tooltip="false" 
+      line-width="2" 
+      reload="0" 
+      host="{{_baseUrl}}"
+      id="geoquantumviz">
+      
+      'RGbSPtKw9BhaZLfPdAGPZZDhAEVTldaYFY._MXgrP6rqjBFTnuA5Y9m5We0H_nhPXF5SeanXJo1oKWJjbtHYdvZYKWw2mGC691KGIHU3pvxu9oGJ1Sk3n5757P9nXRIiYCa6xNNMR3Xe5qCBA8UfsV' 'READ' STORE
+      'C2m4E5_r2eFvrmH1dTife5_ppRtmsHRcavNvkF3acT9GI755jGjcZtLJWc6cOrsMClrYmqRTIEt9t4QHZXkSkEBf_LrpIVPG9z5_oqnvusEPVsn1eir7kt3uhYjGXSjV' 'WRITE' STORE
+    
+$READ AUTHENTICATE 1000000 MAXOPS
+
+'POLYGON ((-0.60 47.25, -0.60 47.65, -0.35 47.65, -0.35 47.35, -0.60 47.25))' 0.01 false GEO.WKT
+    GEO.REGEXP '~(' SWAP + ')' +
+    'regexp' STORE
+    
+    [ $READ 'data.fuel.france' { 'type' 'gazole' 'loc' $regexp } NOW -1 ] FETCH 'data' STORE
+    $data 
+    
+    NOW ISO8601
+    '2015-12-31T00:00:00.000000Z'
+    TIMECLIP
+    NONEMPTY
+    
+    [ SWAP
+    <%
+    // Extract lat + lon
+    [ 3 7 ] SUBLIST FLATTEN DUP
+    [ 1 2 ] SUBLIST LIST-> DROP
+    47.48 -0.56
+    HAVERSINE 'dist' STORE
+    <% $dist 10000.0 > %>
+    <% NULL 4 SET %>
+    IFT
+    %> MACROMAPPER 0 0 0
+    ] MAP NONEMPTY
+    [ SWAP
+    bucketizer.min
+    0
+    31536000000000
+    0
+    ] BUCKETIZE
+    
+    [ SWAP
+    []
+    reducer.min
+    ] REDUCE
+    [ SWAP mapper.tostring 0 0 0 ] MAP
+  
+    // Get station value and its metadata (Name of the station)
+    //LIST-> DROP [ SWAP LOCATIONS ] FLATTEN LIST-> DROP ->HHCODE 'hfilter' STORE
+    //[ $data [ ] { 'loc' $hfilter } filter.byattr ] FILTER
+    
+    'gtsList' STORE
+    { 'gts' $gtsList 'params' [ { 'render' 'marker' 'marker' 'fuel' } ] }
+  </warp10-geoquantumviz> 
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class QuantumvizPracticeApp extends Polymer.Element {
+      static get is() { return 'quantumviz-practice-app'; }
+      static get properties() {
+        return {
+          _baseUrl: {
+            type: String,
+            value: 'https://warp.cityzendata.net/dist/api/v0/exec',
+          }
+        };
+      }
+
+      ready() {
+        super.ready();
+        this.warpscriptScript = ` NOW '_NOW' STORE
+    51.40 '_BASE_LAT' STORE
+    0.00 '_BASE_LON' STORE
+    <% 10000000 * $_NOW SWAP - %> 'getTimestamp' STORE
+    <% 10.0 / 2 * PI * SIN 0.1 * $_BASE_LAT + %> 'getLat' STORE
+    <% -0.01 * $_BASE_LON + %> 'getLon' STORE
+    <% 10.0 / 2 * PI * COS 10 * %> 'getValue' STORE
+    <%
+    'i' STORE
+    $i @getTimestamp
+    $i @getLat
+    $i @getLon
+    1000
+    $i @getValue
+    ADDVALUE
+    %> 'generateGts' STORE
+
+    NEWGTS
+    1 10 $generateGts FOR
+
+    NEWGTS
+    $_NOW 10000000 - 51.50 -0.10 NaN 10 ADDVALUE
+    $_NOW 20000000 - 51.46 -0.09 NaN 9 ADDVALUE
+    $_NOW 30000000 - 51.42 -0.08 NaN 8 ADDVALUE
+    $_NOW 40000000 - 51.40 -0.07 NaN 7 ADDVALUE
+    $_NOW 50000000 - 51.44 -0.06 NaN 6 ADDVALUE
+    $_NOW 60000000 - 51.48 -0.05 NaN 8 ADDVALUE
+    $_NOW 70000000 - 51.50 -0.03 NaN 10 ADDVALUE
+    $_NOW 80000000 - 51.52 -0.02 NaN 9 ADDVALUE
+    $_NOW 90000000 - 51.54 -0.01 NaN 8 ADDVALUE
+    $_NOW 100000000 - 51.56 -0.00 NaN 9 ADDVALUE
+
+
+    NEWGTS
+    $_NOW 10000000 - 51.50 -0.10 NaN 'a' ADDVALUE
+    $_NOW 20000000 - 51.46 -0.09 NaN 'b' ADDVALUE
+    $_NOW 30000000 - 51.42 -0.08 NaN 'c' ADDVALUE
+    $_NOW 40000000 - 51.40 -0.07 NaN 'd' ADDVALUE
+
+    NEWGTS
+    $_NOW 15000000 - 51.44 0.06 NaN true ADDVALUE
+    $_NOW 35000000 - 51.48 0.05 NaN false ADDVALUE
+    $_NOW 55000000 - 51.50 0.03 NaN true ADDVALUE
+    $_NOW 75000000 - 51.52 0.02 NaN false ADDVALUE
+    $_NOW 95000000 - 51.54 0.01 NaN true ADDVALUE
+
+    {
+    'positions' [ [ 51.50 -0.22 ] [ 51.46 -0.30 ] [ 51.42 -0.20 ] ]
+    }
+
+
+    {
+    'positions' [ [ 51.20 -0.12 42 ] [ 51.36 -0.00 21 ] [ 51.32 -0.20 84 ] ]
+    }
+
+    {
+    'positions' [ [ 51.20 -0.52 42 ] [ 51.36 -0.40 21 ] [ 51.32 -0.60 84 ] ]
+    }
+
+    {
+    'positions' [
+    [ 51.10 -0.52 42 10 ] [ 51.56 -0.40 21 30 ] [ 51.42 -0.60 84 40 ]
+    [ 51.30 -0.82 42 1 ] [ 51.76 -0.70 21 20 ] [ 51.62 -0.90 84 45 ]
+    ]
+    }
+
+    8 ->LIST
+    'gts' STORE
+
+    [
+    { 'color' '#ff1010' 'key' 'Path A' }
+    { 'color' '#1010ff' 'key' 'Path B' }
+    { 'key' 'Annotations (text)' 'render' 'marker' 'marker' 'fuel' }
+    { 'key' 'Annotations (boolean)' 'baseRadius' 5 }
+    { 'key' 'fuel' 'render' 'marker' }
+    { 'key' 'points' 'render' 'dots' 'color' '#ffa' 'borderColor' '#f00' 'baseRadius' 5 }
+    { 'key' 'points' 'render' 'weightedDots' 'color' '#aaf' 'borderColor' '#f00' 'maxValue' 100 'minValue' 0
+    'baseRadius' 5 'numSteps' 10 }
+    {
+    'key' 'points' 'render' 'coloredWeightedDots' 'maxValue' 100 'minValue' 0 'baseRadius' 5
+    'maxColorValue' 50 'minColorValue' 0 'numColorSteps' 10 'startColor' '#ff0000' 'endColor' '#00ff00'
+    }
+    ]
+    'params' STORE
+
+    { 'interpolate' 'cardinal' }
+    'globalParams' STORE
+
+    {
+    'gts' $gts
+    'params' $params
+    'globalParams' $globalParams
+    }`;
+      }
+
+      _handleResponse(event, response) {
+        console.log('_handleResponse', response);
+        this.data = response.stack;
+        console.log('_handleResponse - parsed - dataChanged', this.data);
+      }
+
+      _handleError(event, error) {
+        if (error.request.xhr.responseText.match(/<pre>\s*(.*)\s*<\/prse>/)) {
+          this.errorMsg = error.request.xhr.responseText.match(/<pre>\s*(.*)\s*<\/prse>/)[1];
+        } else {
+          this.errorMsg = error.request.statusText;
+        }
+        console.log('_handleError', { error: error, errorMsg: this.errorMsg });
+      }
+    }
+
+    window.customElements.define(QuantumvizPracticeApp.is, QuantumvizPracticeApp);
+  </script>
+</dom-module>
