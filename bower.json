@@ -1,0 +1,13 @@
+{
+  "name": "quantumviz-practice",
+  "main": "index.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "warp10-iron": "cityzendata/warp10-iron#^2.0.0-b2",
+    "warp10-quantumviz": "cityzendata/warp10-quantumviz#^2.1.0-b1"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  }
+}

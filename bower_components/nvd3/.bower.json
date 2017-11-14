@@ -1,0 +1,49 @@
+{
+  "name": "nvd3",
+  "homepage": "http://www.nvd3.org",
+  "authors": [
+    "Bob Monteverde",
+    "Tyler Wolf",
+    "Robin Hu",
+    "Frank Shao",
+    "liquidpele"
+  ],
+  "description": "Re-usable charts and chart components for d3.",
+  "main": [
+    "build/nv.d3.js",
+    "build/nv.d3.css"
+  ],
+  "keywords": [
+    "d3",
+    "visualization",
+    "svg",
+    "charts"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "d3": "^3.4.4"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "src",
+    "examples",
+    "GruntFile.js",
+    "*.html",
+    "*.log",
+    "*.xml",
+    "*.json",
+    "*.md"
+  ],
+  "_release": "v1.8.2.1",
+  "_resolution": {
+    "type": "tag",
+    "tag": "v1.8.2.1",
+    "commit": "ed81fc8cc828fa9cefe6c9b7dcbe60ab4a7dc762"
+  },
+  "_source": "https://github.com/LostInBrittany/nvd3.git",
+  "_target": "v1.8.2.1",
+  "_originalSource": "LostInBrittany/nvd3"
+}
