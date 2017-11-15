@@ -1,13 +1,17 @@
 # Quantumviz Practice
 
-## Requisits
+## Requisites
 
-At least you need [Python](https://doc.ubuntu-fr.org/python) runtime or [NodeJS](https://nodejs.org/en/download/package-manager/) (either using polymerCLI, see [CONTRIBUTE.md](CONTRIBUTE.md), either using a [simple HTTP Server](https://raw.githubusercontent.com/Giwi/angular2-beer/master/scripts/web-server.js)). Well, you need a HTTP server
+At least you need [Python](https://doc.ubuntu-fr.org/python) runtime or 
+[NodeJS](https://nodejs.org/en/download/package-manager/) (either using polymerCLI, see [CONTRIBUTE.md](CONTRIBUTE.md), 
+either using a [simple HTTP Server](https://raw.githubusercontent.com/Giwi/angular2-beer/master/scripts/web-server.js)). 
+Well, you need a HTTP server
 ## First step
 
-Normaly, you have some WarpScripts. 
+Normally, you have some WarpScripts. 
 
-First, [download](https://github.com/Giwi/quantumviz-practice/archive/master.zip) or `git clone git@github.com:Giwi/quantumviz-practice.git` this projet an try to run it :
+First, [download](https://github.com/Giwi/quantumviz-practice/archive/master.zip) or
+ `git clone git@github.com:Giwi/quantumviz-practice.git` this project an try to run it :
 
 ```bash
 $ python -m SimpleHTTPServer
@@ -21,13 +25,14 @@ $ node web-server.js
 
 ## Analyze project
 
-The file `index.html` is the entrypoint of our app. It refers (and load) the [Polymer](https://www.polymer-project.org/) framework.
+The file `index.html` is the entrypoint of our app. It refers (and load) the [Polymer](https://www.polymer-project.org/)
+framework.
 
 ```html
 <script src="./bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 ```
 
-And then import a Webcomponent called `quantumviz-practice-app` with
+And then import a Web-Component called `quantumviz-practice-app` with
 
 ```html
  <link rel="import" href="./src/quantumviz-practice-app/quantumviz-practice-app.html">
@@ -57,7 +62,8 @@ And the we use it :
 + **map-zoom** : the initial zoom value (default : 10)
 + **host** : set the Warp10 url
 
-There is some other options, see [bower_components/warp10-quantumviz/warp10-geoquantumviz.html](bower_components/warp10-quantumviz/warp10-geoquantumviz.html).
+There is some other options, see 
+[bower_components/warp10-quantumviz/warp10-geoquantumviz.html](bower_components/warp10-quantumviz/warp10-geoquantumviz.html).
 
 Now, as you can see, it displays nothing.
 

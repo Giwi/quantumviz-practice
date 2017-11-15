@@ -2,7 +2,9 @@
 
 Happy to see you here :)
 
-Now you will develop yourself a sparkline widget by using 2 components from [warp10-iron](https://github.com/cityzendata/warp10-iron) and [warp10-quantumviz](https://github.com/cityzendata/warp10-quantumviz) : 
+Now you will develop yourself a sparkline widget by using 2 components from 
+[warp10-iron](https://github.com/cityzendata/warp10-iron) and 
+[warp10-quantumviz](https://github.com/cityzendata/warp10-quantumviz) : 
 
 + warp10-iron/warp10-warpscript-caller
 + warp10-quantumviz/warp10-display-chart
@@ -74,7 +76,7 @@ ready() {
 }
 ```
 
-is called at initialization time. We can now set the `warpscriptScript` var : 
+The `ready()` function is called at initialization time. We can now set the `warpscriptScript` var : 
 
 ```javascript
 ready() {
@@ -117,7 +119,8 @@ _handleError(event, error) {
 
 ## warpscriptScript 
 
-It's up to you to code the WarpSript. We want to display a sparkline which shows the evolution of the gazole price for a given town (let's say Plougastel Daoulas - 29470 or whatever you want in France) during this year.
+It's up to you to code the WarpSript. We want to display a sparkline which shows the evolution of the gazole price for 
+a given town (let's say Plougastel Daoulas - 29470 or whatever you want in France) during this year.
 
 Don't forget to add this at the end of the WarpScript :
 
