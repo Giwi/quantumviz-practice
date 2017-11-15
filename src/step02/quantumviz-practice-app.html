@@ -10,11 +10,16 @@
         display: block;
       }
     </style>
-    <warp10-display-chart data="{{data}}" tooltip></warp10-display-chart>
+    <warp10-display-chart
+      data="{{data}}"
+      tooltip></warp10-display-chart>
 
-    <warp10-warpscript-caller auto id="warpscriptcaller" url="{{_baseUrl}}" warpscript="{{ warpscriptScript }}"
-                              on-response="_handleResponse"
-                              on-error="_handleError"></warp10-warpscript-caller>
+    <warp10-warpscript-caller
+      auto
+      url="{{_baseUrl}}"
+      warpscript="{{ warpscriptScript }}"
+      on-response="_handleResponse"
+      on-error="_handleError"></warp10-warpscript-caller>
 
     <warp10-geoquantumviz
       map-zoom="14"
@@ -22,8 +27,7 @@
       tooltip="false"
       line-width="2"
       reload="0"
-      host="{{_baseUrl}}"
-      id="geoquantumviz">
+      host="{{_baseUrl}}">
       <!-- your WarpScript here -->
     </warp10-geoquantumviz>
   </template>
@@ -42,7 +46,7 @@
         return {
           _baseUrl: {
             type: String,
-            value: 'https://warp.cityzendata.net/dist/api/v0/exec',
+            value: 'http://localhost:8080/api/v0/exec',
           }
         };
       }

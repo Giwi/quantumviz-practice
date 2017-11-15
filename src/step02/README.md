@@ -132,6 +132,19 @@ Don't forget to add this at the end of the WarpScript :
 }
 ```
 
+
+Hey, you can even change the kind of graph, replace `linear` by `area` or `spline` or `area-spline`
+
+You can also shoose colors : 
+
+```bash
+{
+  'gts' $gts
+  'params' [ { 'color'  '#FF9900' } { 'color' '#039be5' } ]
+  'globalParams' { 'interpolate' 'area-spline' }
+}
+```
+
 ## The end
 
 There's all kind of visualization in
