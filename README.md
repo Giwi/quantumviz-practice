@@ -90,4 +90,4 @@ Reload your browser, and it's magic!!
 
 Any question?
 
-Let's go further at [step 2](./src/step02/README.html)
+Let's go further at [step 2](./src/step02/README.md)

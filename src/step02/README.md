@@ -85,7 +85,7 @@ ready() {
 
 We have no warpscript for now. We will set it later. We must finish the plumbing before.
 
-### warp10-warpscript-caller
+## warp10-warpscript-caller
 
 This is our ajax requester : 
 
@@ -115,3 +115,27 @@ _handleError(event, error) {
 }
 ```
 
+## warpscriptScript 
+
+It's up to you to code the WarpSript. We want to display a sparkline which shows the evolution of the gazole price for a given town (let's say Plougastel Daoulas - 29470 or whatever you want in France) during this year.
+
+Don't forget to add this at the end of the WarpScript :
+
+```bash
+'gts' STORE
+{
+    'gts' $gts
+    'globalParams' { 'interpolate' 'linear' }
+}
+```
+
+## The end
+
+There's all kind of visualization in
+
+- [Quantum-Viz](https://github.com/cityzendata/warp10-quantumviz)
+- [Warp10-tiles](https://github.com/cityzendata/warp10-tiles)
+
+So, be curious and browse examples.
+
+Thanks!
