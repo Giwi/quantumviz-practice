@@ -85,7 +85,7 @@ ready() {
 }
 ```
 
-We have no warpscript for now. We will set it later. We must finish the plumbing before.
+We have no WarpScript for now. We will set it later. We must finish the plumbing before.
 
 ## warp10-warpscript-caller
 
@@ -107,7 +107,7 @@ _handleResponse(event, response) {
 }
 
 _handleError(event, error) {
-    // ok, a bit more tricky, but taake it as-is
+    // ok, a bit more tricky, but take it as-is
     if (error.request.xhr.responseText.match(/<pre>\s*(.*)\s*<\/prse>/)) {
         this.errorMsg = error.request.xhr.responseText.match(/<pre>\s*(.*)\s*<\/prse>/)[1];
     } else {

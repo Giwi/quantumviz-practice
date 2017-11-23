@@ -6,12 +6,13 @@ At least you need [Python](https://doc.ubuntu-fr.org/python) runtime or
 [NodeJS](https://nodejs.org/en/download/package-manager/) (either using polymerCLI, see [CONTRIBUTE.md](CONTRIBUTE.md), 
 either using a [simple HTTP Server](https://raw.githubusercontent.com/Giwi/angular2-beer/master/scripts/web-server.js)). 
 Well, you need a HTTP server
+
 ## First step
 
 Normally, you have some WarpScripts. 
 
 First, [download](https://github.com/Giwi/quantumviz-practice/archive/master.zip) or
- `git clone git@github.com:Giwi/quantumviz-practice.git` this project an try to run it :
+ `git clone git@github.com:Giwi/quantumviz-practice.git` this project and try to run it :
 
 ```bash
 $ python -m SimpleHTTPServer
@@ -90,7 +91,7 @@ Don't forget to add a custom JSON structure at the end of your WarpScript
 </warp10-geoquantumviz>
 ```
 
-Reload your browser, and it's magic!!
+Refresh your browser, and it's magic!!
 
 ## Next
 
