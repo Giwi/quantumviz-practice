@@ -36,9 +36,11 @@ Lowest price :
 'ZZ63qGJSJ5gWc3QUIKbYXng_.mDHJjEJH.8XSygfHM7Bzle2UG9ljmzQpURlrcCuvlvAy1HUyLO3CieY6Aa_BwsNzFLZ5MYAniL6EQD.QUgpIycT7y9pz8rSjsV1GoTRZAX7XS1GNuOEINj6lpWY0f4IFjYaiF9S'
 'READ' STORE
 
-'POLYGON ((-0.60 47.25, -0.60 47.65, -0.35 47.65, -0.35 47.35, -0.60 47.25))' 0.01 false GEO.WKT
+'POLYGON ((7.05 43.60, 7.02 43.62, 7.09 43.64, 7.11 43.62, 7.05 43.60))' 0.01 false GEO.WKT
 GEO.REGEXP '~(' SWAP + ')' +
 'regexp' STORE
+
+$READ AUTHENTICATE 1000000 MAXOPS
 
 [ $READ 'data.fuel' { 'type' 'gazole' 'loc' $regexp } NOW -1 ] FETCH 'data' STORE
 $data
@@ -49,35 +51,35 @@ TIMECLIP
 NONEMPTY
 
 [ SWAP 
-  <%
-    // Extract lat + lon
-    [ 3 7 ] SUBLIST FLATTEN DUP
-    [ 1 2 ] SUBLIST LIST-> DROP
-    47.48 -0.56
-    HAVERSINE 'dist' STORE
-    <% $dist 10000.0 > %>
-    <% NULL 4 SET %>
-    IFT
-  %> MACROMAPPER 0 0 0 
+<%
+  // Extract lat + lon
+  [ 3 7 ] SUBLIST FLATTEN DUP
+  [ 1 2 ] SUBLIST LIST-> DROP
+  43.620 7.057
+  HAVERSINE 'dist' STORE
+  <% $dist 10000.0 > %>
+  <% NULL 4 SET %>
+  IFT
+%> MACROMAPPER 0 0 0 
 ] MAP NONEMPTY 
 
 [ SWAP 
-  bucketizer.min
-  0
-  31536000000000
-  0
+bucketizer.min
+0
+31536000000000
+0
 ] BUCKETIZE
 
 [ SWAP
-  []
-  reducer.min
+[]
+reducer.min
 ] REDUCE
 [ SWAP mapper.tostring 0 0 0 ] MAP
 
 // Get station value and its metadata (Name of the station)
 LIST-> DROP [ SWAP LOCATIONS ] FLATTEN LIST-> DROP ->HHCODE 'hfilter' STORE
 [ $data [ ] { 'loc' $hfilter } filter.byattr ] FILTER
-      [ SWAP mapper.tostring 0 0 0 ] MAP
+    [ SWAP mapper.tostring 0 0 0 ] MAP
 'gtsList' STORE
 { 'gts' $gtsList 'params' [ { 'render' 'marker' 'marker' 'fuel' } ] }
 ```
