@@ -179,6 +179,7 @@
         if (this.reload > 0) {
           // If `reload > 0` set reloading interval and call, else call directly
           this._reloadInterval = parseFloat(this.reload) * 1000;
+          this.loading = false;
           this._doCallWithReload();
         } else {
           this._doCall();

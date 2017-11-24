@@ -276,8 +276,6 @@
         });
       }
       this.mapReady = true;
-      /*      this.$.map.style.width = '640px';
-            this.$.map.style.height = '480px';*/
       if (this.data !== null) {
         this._dataChanged();
       }
@@ -327,7 +325,7 @@
       if (this.clientHeight === 0) {
         this.updateStyles({'--default-height': this._DEFAULT_HEIGHT + 'px'});
       } else {
-        this.updateStyles({'--default-height': this.clientHeight + 'px'});
+        this.updateStyles({'--default-height': '100%'});
       }
 
       if (this.debug) {
@@ -468,7 +466,6 @@
     _updateAnnotation(gts) {
       let positions = [];
       let icon;
-
       switch (gts.render) {
         case 'marker':
           icon = L.MakiMarkers.icon({icon: gts.marker, color: gts.color, size: 'm'});

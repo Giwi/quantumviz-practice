@@ -5,7 +5,6 @@
 -->
 <link rel="import" href=" ../polymer/polymer.html">
 <link rel="import" href=" ../iron-image/iron-image.html">
-<link rel="import" href=" ../granite-spinner/granite-spinner.html">
 <link rel="import" href="../warp10-iron/warp10-warpscript-caller.html">
 
 <dom-module id="warp10-img">
@@ -19,19 +18,13 @@
         height: var(--height, auto);
       }
     </style>
-    <granite-spinner
-        color="#ff4081"
-        line-width="0.5em"
-        size="50"
-        active="{{loading}}"></granite-spinner>
-    <template is="dom-if" if="{{!loading}}">
       <iron-image id="img" src="[[img]]" sizing="contain"></iron-image>
-    </template>
     <warp10-warpscript-caller
         id="warpscript-caller"
         url="{{baseURL}}" warpscript="{{warpscriptScript}}"
         on-response="_handleData"
         reload="{{reload}}"
+        debug="{{debug}}"
         block-calls="{{blockCalls}}" call="{{call}}"
         loading="{{loading}}" auto>
     </warp10-warpscript-caller>
@@ -96,6 +89,10 @@
         loading: {
           type: Boolean,
           value: true,
+        },
+        debug: {
+          type: Boolean,
+          value: false,
         },
       };
     }

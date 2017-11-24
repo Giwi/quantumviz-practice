@@ -2,15 +2,15 @@
 
 <script>
   /* globals looseJSON */
-  (function() {
-    var gtsTools = {};
+  (function () {
+    let gtsTools = {};
 
     /**
      * Returns true if @value is an Array
      * @param {{unknown}} value
      * @return {{Bolean}}
      */
-    gtsTools.isArray = function(value) {
+    gtsTools.isArray = function (value) {
       return value && typeof value === 'object' && value instanceof Array && typeof value.length === 'number'
         && typeof value.splice === 'function' && !(value.propertyIsEnumerable('length'));
     };
@@ -20,8 +20,8 @@
      * @param {{unknown}} data
      * @return {{Bolean}}
      */
-    gtsTools.isValidResponse = function(data) {
-      var response;
+    gtsTools.isValidResponse = function (data) {
+      let response;
 
       try {
         response = looseJSON.parse(data);
@@ -48,7 +48,7 @@
      * @param {{unknonwn}} item
      * @return {{Bolean}}
      */
-    gtsTools.isEmbeddedImage = function(item) {
+    gtsTools.isEmbeddedImage = function (item) {
       return !(typeof item === !'string' || !/^data:image/.test(item));
     };
 
@@ -61,9 +61,9 @@
      * @param {{unknonwn}} item
      * @return {{Bolean}}
      */
-    gtsTools.isEmbeddedImageObject = function(item) {
+    gtsTools.isEmbeddedImageObject = function (item) {
       return !((item === null) || (item.image === null) ||
-          (item.caption === null) || !gtsTools.isEmbeddedImage(item.image));
+        (item.caption === null) || !gtsTools.isEmbeddedImage(item.image));
     };
 
     /**
@@ -76,18 +76,18 @@
      * @param {{unknonwn}} item
      * @return {{Bolean}}
      */
-    gtsTools.isPositionArray = function(item) {
+    gtsTools.isPositionArray = function (item) {
       if (!item || !item.positions) {
         return false;
       }
       if (gtsTools.isPositionsArrayWithValues(item) || gtsTools.isPositionsArrayWithTwoValues(item)) {
         return true;
       }
-      for (var i in item.positions) {
+      for (let i in item.positions) {
         if (item.positions[i].length < 2 || item.positions[i].length > 3) {
           return false;
         }
-        for (var j in item.positions[i]) {
+        for (let j in item.positions[i]) {
           if (typeof item.positions[i][j] !== 'number') {
             return false;
           }
@@ -106,15 +106,15 @@
      * @param {{unknonwn}} item
      * @return {{Bolean}}
      */
-    gtsTools.isPositionsArrayWithValues = function(item) {
+    gtsTools.isPositionsArrayWithValues = function (item) {
       if ((item === null) || (item.positions === null)) {
         return false;
       }
-      for (var i in item.positions) {
+      for (let i in item.positions) {
         if (item.positions[i].length !== 3) {
           return false;
         }
-        for (var j in item.positions[i]) {
+        for (let j in item.positions[i]) {
           if (typeof item.positions[i][j] !== 'number') {
             return false;
           }
@@ -133,15 +133,15 @@
      * @param {{unknonwn}} item
      * @return {{Bolean}}
      */
-    gtsTools.isPositionsArrayWithTwoValues = function(item) {
+    gtsTools.isPositionsArrayWithTwoValues = function (item) {
       if ((item === null) || (item.positions === null)) {
         return false;
       }
-      for (var i in item.positions) {
+      for (let i in item.positions) {
         if (item.positions[i].length !== 4) {
           return false;
         }
-        for (var j in item.positions[i]) {
+        for (let j in item.positions[i]) {
           if (typeof item.positions[i][j] !== 'number') {
             return false;
           }
@@ -157,9 +157,8 @@
      * @param {{String}} json
      * @return {{metric}}
      */
-    gtsTools.metricFromJSON = function(json) {
-      var metric;
-      metric = {
+    gtsTools.metricFromJSON = function (json) {
+      let metric = {
         ts: json[0],
       };
       switch (json.length) {
@@ -191,19 +190,15 @@
      * @param {{Sting}} id
      * @return {{gts}}
      */
-    gtsTools.gtsFromJSON = function(json, id) {
-      let gts;
-      gts = {
-        c: json.c,
-        l: json.l,
-        a: json.a,
-        v: [],
-        id: id,
-      };
-
-      gts.v = json.v;
+    gtsTools.gtsFromJSON = function (json, id) {
       return {
-        gts: gts,
+        gts: {
+          c: json.c,
+          l: json.l,
+          a: json.a,
+          v: json.v,
+          id: id,
+        },
       };
     };
 
@@ -215,10 +210,12 @@
      * @param {{Sting}} prefixId
      * @return {{Array}}
      */
-    gtsTools.gtsFromJSONList = function(jsonList, prefixId) {
+    gtsTools.gtsFromJSONList = function (jsonList, prefixId) {
       // console.log("[czd-gts-tools] gtsFromJSONList, jsonList", { list: jsonList });
-      let gts; let gtsList; let i; let id;
-      gtsList = [];
+      let gts;
+      let gtsList = [];
+      let i;
+      let id;
       for (i = 0; i < jsonList.length; i++) {
         gts = jsonList[i];
         if ((prefixId !== undefined) && (prefixId !== '')) {
@@ -261,8 +258,9 @@
      * @param {{Array}} r
      * @return {{Array}}
      */
-    gtsTools.flattenGtsIdArray = function(a, r) {
-      let elem; let j;
+    gtsTools.flattenGtsIdArray = function (a, r) {
+      let elem;
+      let j;
 
       if (!r) {
         r = [];
@@ -286,15 +284,13 @@
      * @param {{gts}} gts
      * @return {{String}}
      */
-    gtsTools.serializeGtsMetadata = function(gts) {
-      var serializedLabels = [];
+    gtsTools.serializeGtsMetadata = function (gts) {
+      let serializedLabels = [];
 
       Object.keys(gts.l).forEach((key) => {
         serializedLabels.push(key + '=' + gts.l[key]);
       });
-      let serializedGtsMetadata = (gts.id ? (gts.id + ' ') : '') + gts.c + '{' + serializedLabels.join(',') + '}';
-
-      return serializedGtsMetadata;
+      return (gts.id ? (gts.id + ' ') : '') + gts.c + '{' + serializedLabels.join(',') + '}';
     };
 
 
@@ -304,16 +300,16 @@
      * @param {{gts}} gts
      * @return {{Array}}
      */
-    gtsTools.gtsToPath = function(gts) {
-      var path = [];
+    gtsTools.gtsToPath = function (gts) {
+      let path = [];
 
       // Sort values
-      gts.v = gts.v.sort(function(a, b) {
+      gts.v = gts.v.sort(function (a, b) {
         return a[0] - b[0];
       });
 
-      for (var i = 0; i < gts.v.length; i++) {
-        var metric = gts.v[i];
+      for (let i = 0; i < gts.v.length; i++) {
+        let metric = gts.v[i];
 
         if (metric.length === 2) {
           // timestamp, value
@@ -346,9 +342,9 @@
      * @param {{gts}} b
      * @return {{Boolean}}
      */
-    gtsTools.equalMetadata = function(a, b) {
+    gtsTools.equalMetadata = function (a, b) {
       if (a.c === undefined || b.c === undefined || a.l === undefined || b.l === undefined ||
-          !(a.l instanceof Object) || !(b.l instanceof Object)) {
+        !(a.l instanceof Object) || !(b.l instanceof Object)) {
         console.error('[warp10-gts-tools] equalMetadata - Error in GTS, metadata is not well formed');
         return false;
       }
@@ -372,7 +368,7 @@
      * @return {{Boolean}}
      */
     gtsTools.isGts = function(item) {
-      return !(item === null || item.c === null || item.l === null ||
+      return !(!item || item === null || item.c === null || item.l === null ||
           item.a === null || item.v === null || !gtsTools.isArray(item.v));
     }
     ;
@@ -382,13 +378,13 @@
      * @param {{gts}} gts
      * @return {{Boolean}}
      */
-    gtsTools.isGtsToPlot = function(gts) {
+    gtsTools.isGtsToPlot = function (gts) {
       if (!gtsTools.isGts(gts) || gts.v.length === 0) {
         return false;
       }
       // We look at the first non-null value, if it's a String or Boolean it's an annotation GTS,
       // if it's a number it's a GTS to plot
-      for (var i = 0; i < gts.v.length; i++) {
+      for (let i = 0; i < gts.v.length; i++) {
         if (gts.v[i][gts.v[i].length - 1] !== null) {
           // console.log("[warp10-gts-tools] isGtsToPlot - First value type", gts.v[i][gts.v[i].length - 1] );
           if (typeof (gts.v[i][gts.v[i].length - 1]) === 'number' ||
@@ -408,14 +404,14 @@
      * @param {{gts}} gts
      * @return {{Boolean}}
      */
-    gtsTools.isGtsToAnnotate = function(gts) {
+    gtsTools.isGtsToAnnotate = function (gts) {
       if (!gtsTools.isGts(gts) || gts.v.length === 0) {
         return false;
       }
       // We look at the first non-null value, if it's a String or Boolean it's an annotation GTS,
       // if it's a number it's a GTS to plot
 
-      for (var i = 0; i < gts.v.length; i++) {
+      for (let i = 0; i < gts.v.length; i++) {
         if (gts.v[i][gts.v[i].length - 1] !== null) {
           if (typeof (gts.v[i][gts.v[i].length - 1]) !== 'number' &&
             ( !!gts.v[i][gts.v[i].length - 1].constructor &&
@@ -434,12 +430,12 @@
      *
      * @param {{gts}} gts
      */
-    gtsTools.gtsSort = function(gts) {
+    gtsTools.gtsSort = function (gts) {
       if (gts.isSorted) {
         return;
       }
       // console.log("[warp10-gts-tools] gtsSort ", gts);
-      gts.v = gts.v.sort(function(a, b) {
+      gts.v = gts.v.sort(function (a, b) {
         return a[0] - b[0];
       });
       gts.isSorted = true;
@@ -452,7 +448,7 @@
      * @param {{gts}} gts
      * @return {{Array}}
      */
-    gtsTools.gtsTimeRange = function(gts) {
+    gtsTools.gtsTimeRange = function (gts) {
       gtsTools.gtsSort(gts);
       // console.log("[warp10-gts-tools] gtsTimeRange ", [gts.v[0][0], gts.v[gts.v.length - 1][0]]);
       if (gts.v.length === 0) {

@@ -30,7 +30,7 @@
     "Leaflet.MakiMarkers": "LostInBrittany/Leaflet.MakiMarkers#~1.0.1",
     "c3": "^0.4.11",
     "d3": "^3.5.17",
-    "warp10-iron": "cityzendata/warp10-iron#^2.0.0-b1",
+    "warp10-iron": "cityzendata/warp10-iron#^2.0.0-b3",
     "granite-spinner": "LostInBrittany/granite-spinner#^2.1.0",
     "leaflet-map": "Giwi/leaflet-map#v1.2.0-9",
     "granite-c3": "LostInBrittany/granite-c3#^2.2.1",

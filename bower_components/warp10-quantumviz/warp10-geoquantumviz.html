@@ -7,52 +7,52 @@
 <link rel="import" href="./warp10-quantumviz.html">
 <link rel="import" href="./warp10-display-map.html">
 <dom-module id="warp10-geoquantumviz">
-  <style>
-    :host {
-      display: block;
-      width: var(--default-width, 100%);
-      height: var(--default-height, 100%);
-    }
-
-    warp10-display-map,
-    warp10-quantumviz {
-      width: var(--default-width, 100%);
-      height: calc(var(--default-height, 100%) / 2);
-    }
-
-    /deep/ .leaflet-control-attribution {
-      display: none;
-    }
-
-    #map-spinner {
-      z-index: 1000;
-    }
-  </style>
   <template>
+    <style>
+      :host {
+        display: block;
+        width: var(--default-width, 100%);
+        height: var(--default-height, 100%);
+      }
+
+      warp10-display-map,
+      warp10-quantumviz {
+        width: var(--default-width, 100%);
+        height: calc(var(--default-height, 100%) / 2);
+      }
+
+      /deep/ .leaflet-control-attribution {
+        display: none;
+      }
+
+      #map-spinner {
+        z-index: 1000;
+      }
+    </style>
     <granite-spinner
-        id="map-spinner"
-        active="{{loading}}"
-        hover container-height="{{mapHeight}}"
-       size="{{_mapSpinnerSize}}"></granite-spinner>
+      id="map-spinner"
+      active="{{loading}}"
+      hover container-height="{{mapHeight}}"
+      size="{{_mapSpinnerSize}}"></granite-spinner>
     <warp10-display-map
-        data={{data}}
-        latitude="{{mapLat}}" longitude="{{mapLon}}" zoom="{{mapZoom}}"
-        current-values="{{currentValues}}"
-        annotations-selected-timestamp="{{annotationsSelectedTimestamp}}"
-        debug="[[debug]]"></warp10-display-map>
+      data={{data}}
+      latitude="{{mapLat}}" longitude="{{mapLon}}" zoom="{{mapZoom}}"
+      current-values="{{currentValues}}"
+      annotations-selected-timestamp="{{annotationsSelectedTimestamp}}"
+      debug="[[debug]]"></warp10-display-map>
 
     <warp10-quantumviz
-        show-axis="{{showAxis}}" tooltip="{{tooltip}}"
-        line-width="{{lineWidth}}"
-        current-values="{{currentValues}}"
-        annotations-selected-timestamp="{{annotationsSelectedTimestamp}}"
-        host="{{host}}"
-        old-path="{{oldPath}}"
-        warpscript="{{_warpscript}}"
-        data="{{data}}"
-        reload="{{reload}}"
-        loading="{{loading}}"
-        debug="[[debug]]"></warp10-quantumviz>
+      show-axis="{{showAxis}}" tooltip="{{tooltip}}"
+      line-width="{{lineWidth}}"
+      current-values="{{currentValues}}"
+      annotations-selected-timestamp="{{annotationsSelectedTimestamp}}"
+      host="{{host}}"
+      old-path="{{oldPath}}"
+      warpscript="{{_warpscript}}"
+      data="{{data}}"
+      reload="{{reload}}"
+      loading="{{loading}}"
+      debug="[[debug]]"></warp10-quantumviz>
 
   </template>
 </dom-module>
@@ -221,7 +221,7 @@
       if (this.clientHeight === 0) {
         this.updateStyles({'--default-height': this._DEFAULT_HEIGHT + 'px'});
       } else {
-        this.updateStyles({'--default-height': this.clientHeight + 'px'});
+        this.updateStyles({'--default-height': '100%'});
       }
     }
   }

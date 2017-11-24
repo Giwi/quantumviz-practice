@@ -30,7 +30,16 @@
 
   <h1>GeoQuantumviz</h1>
 
-  <warp10-geoquantumviz
+<warp10-geoquantumviz
+      show-axis="false" tooltip="false" line-width="2" reload="0"
+      host="https://warp.cityzendata.net/dist/api/v0" old-path="" debug>
+    '~telemetry.redlion.gps'  { 'edgeID' 'AVI40445' } NOW -1 @dashboard/sdmo/fetch
+    [ SWAP mapper.tostring 0 0 0 ] MAP
+  'gtsList' STORE
+     { 'gts' $gtsList 'params' [ { 'render' 'marker' 'marker' 'fuel' } ] }
+  </warp10-geoquantumviz>
+
+  <!--<warp10-geoquantumviz
       show-axis="true" tooltip="true" line-width="2" reload="0"
       host="https://warp.cityzendata.net/dist/api/v0" old-path="" debug>
     NOW '_NOW' STORE
@@ -126,7 +135,7 @@
     'params' $params
     'globalParams' $globalParams
     }
-  </warp10-geoquantumviz>
+  </warp10-geoquantumviz>-->
   <p>By <a href="http://cityzendata.com">Cityzen Data</a></p>
 </div>
 </body>

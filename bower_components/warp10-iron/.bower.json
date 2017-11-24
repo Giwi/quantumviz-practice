@@ -38,14 +38,14 @@
     "web-component-tester": "^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
-  "version": "2.0.0-b2",
-  "_release": "2.0.0-b2",
+  "version": "2.0.0-b3",
+  "_release": "2.0.0-b3",
   "_resolution": {
     "type": "version",
-    "tag": "2.0.0-b2",
-    "commit": "fb9e648a6f18ba8f606c53bdaf1f01d0abe9a4b7"
+    "tag": "2.0.0-b3",
+    "commit": "a2a50e63e160f16e4d892ecd19f172f53c3d6878"
   },
   "_source": "https://github.com/cityzendata/warp10-iron.git",
-  "_target": "^2.0.0-b2",
+  "_target": "^2.0.0-b3",
   "_originalSource": "cityzendata/warp10-iron"
 }
