@@ -21,15 +21,17 @@
       on-response="_handleResponse"
       on-error="_handleError"></warp10-warpscript-caller>
 
-    <warp10-geoquantumviz
-      map-zoom="14"
-      show-axis="false"
-      tooltip="false"
-      line-width="2"
-      reload="0"
-      host="{{_baseUrl}}">
-      <!-- your WarpScript here -->
-    </warp10-geoquantumviz>
+    <div style="height: 1024px">
+      <warp10-geoquantumviz
+        map-zoom="14"
+        show-axis="false"
+        tooltip="false"
+        line-width="2"
+        reload="0"
+        host="{{_baseUrl}}">
+        <!-- your WarpScript here -->
+      </warp10-geoquantumviz>
+    </div>
   </template>
 
   <script>
